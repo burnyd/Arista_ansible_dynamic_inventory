@@ -1,0 +1,12 @@
+---
+
+- hosts: arista
+  connection: local
+  gather_facts: no
+
+  tasks:
+  - name: find all lldp neighbors
+    eos_command:
+      commands: show lldp neighbors
+      wait_for: result[0] contains Neighbor
+      provider: "{{ eos_connection }}"
